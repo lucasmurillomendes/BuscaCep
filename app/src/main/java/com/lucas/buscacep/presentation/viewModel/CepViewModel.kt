@@ -3,9 +3,9 @@ package com.lucas.buscacep.presentation.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lucas.buscacep.presentation.data.model.Cep
-import com.lucas.buscacep.presentation.data.response.CepResponse
-import com.lucas.buscacep.presentation.data.retrofitConf.ApiService
+import com.lucas.buscacep.data.model.Cep
+import com.lucas.buscacep.data.response.CepResponse
+import com.lucas.buscacep.data.retrofitConf.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

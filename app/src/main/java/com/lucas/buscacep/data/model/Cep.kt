@@ -1,4 +1,4 @@
-package com.lucas.buscacep.presentation.data.model
+package com.lucas.buscacep.data.model
 
 data class Cep (
     val cep : String,

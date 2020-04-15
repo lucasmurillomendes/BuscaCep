@@ -1,6 +1,6 @@
-package com.lucas.buscacep.presentation.data.retrofitConf
+package com.lucas.buscacep.data.retrofitConf
 
-import com.lucas.buscacep.presentation.data.response.CepResponse
+import com.lucas.buscacep.data.response.CepResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

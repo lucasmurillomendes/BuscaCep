@@ -1,6 +1,6 @@
-package com.lucas.buscacep.presentation.data.response
+package com.lucas.buscacep.data.response
 
-import com.lucas.buscacep.presentation.data.model.Cep
+import com.lucas.buscacep.data.model.Cep
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

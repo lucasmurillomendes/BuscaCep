@@ -1,6 +1,5 @@
-package com.lucas.buscacep.presentation.data.retrofitConf
+package com.lucas.buscacep.data.retrofitConf
 
-import com.lucas.buscacep.presentation.data.response.CepResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
