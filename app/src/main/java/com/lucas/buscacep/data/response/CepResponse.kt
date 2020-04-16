@@ -7,19 +7,19 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CepResponse(
     @Json(name = "cep")
-    val cep : String,
+    val cep: String,
     @Json(name = "logradouro")
-    val logradouro : String,
+    val logradouro: String,
     @Json(name = "complemento")
-    val bairro : String,
+    val bairro: String,
     @Json(name = "bairro")
     val localidade: String,
     @Json(name = "localidade")
-    val uf : String,
+    val uf: String,
     @Json(name = "ibge")
-    val ibge : String
-){
-    fun getModel() = Cep(
+    val ibge: String
+) {
+    fun mapFrom() = Cep(
         cep = this.cep,
         logradouro = this.logradouro,
         bairro = this.bairro,

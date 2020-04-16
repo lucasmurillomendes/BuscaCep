@@ -1,9 +1,11 @@
 package com.lucas.buscacep.presentation.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lucas.buscacep.data.model.Cep
+import com.lucas.buscacep.data.repository.FailResource
+import com.lucas.buscacep.data.repository.Resource
+import com.lucas.buscacep.data.repository.SucessResource
 import com.lucas.buscacep.data.response.CepResponse
 import com.lucas.buscacep.data.retrofitConf.ApiService
 import retrofit2.Call
@@ -12,36 +14,27 @@ import retrofit2.Response
 
 class CepViewModel() : ViewModel() {
 
-    val cepLiveData: MutableLiveData<List<Cep>> = MutableLiveData()
+    val cepLiveData: MutableLiveData<Resource<Cep>> = MutableLiveData()
 
-    init {
-        getCep()
-    }
-
-    fun getCep(){
-
-        ApiService.service.getCep("87490000").enqueue(object: Callback<CepResponse>{
+    fun findByCEP(cep: String) {
+        ApiService.service.getCep(cep).enqueue(object : Callback<CepResponse> {
             override fun onResponse(call: Call<CepResponse>, response: Response<CepResponse>) {
-                when{
+                when {
                     response.isSuccessful -> {
-                        val ceps: MutableList<Cep> = mutableListOf()
 
-                       response.body()?.let { cepResponse ->
-                           val cep = cepResponse.getModel()
-                           ceps.add(cep)
-                       }
-                        cepLiveData.value = ceps
+                        response.body()?.let { cepResponse ->
+                            val cepIU = cepResponse.mapFrom()
+                            cepLiveData.postValue(SucessResource(cepIU))
+                        }
                     }
                 }
             }
 
-            override fun onFailure(call: Call<CepResponse>, t: Throwable) {
-                Log.d("Erro", t.printStackTrace().toString())
+            override fun onFailure(call: Call<CepResponse>, error: Throwable) {
+                cepLiveData.postValue(FailResource(erro = error.message))
             }
 
         })
     }
-
-
 
 }

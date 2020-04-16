@@ -1,13 +1,14 @@
 package com.lucas.buscacep.presentation.ui
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.rtoshiro.util.format.SimpleMaskFormatter
 import com.github.rtoshiro.util.format.text.MaskTextWatcher
 import com.lucas.buscacep.R
+import com.lucas.buscacep.data.repository.FailResource
+import com.lucas.buscacep.data.repository.SucessResource
 import com.lucas.buscacep.presentation.ui.base.BaseActivity
 import com.lucas.buscacep.presentation.viewModel.CepViewModel
 import kotlinx.android.synthetic.main.cep_activity.*
@@ -15,27 +16,30 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 
 class CepActivity : BaseActivity() {
 
-    public var bairro = ""
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(CepViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cep_activity)
 
         setupToolbar(toolbarMain, R.string.title_toolbar_main)
-
         setupMask()
         setupButton()
-
-        val viewModel: CepViewModel = ViewModelProvider(this).get(CepViewModel::class.java)
-
         setupObservers(viewModel)
 
     }
 
     private fun setupObservers(viewModel: CepViewModel) {
         viewModel.cepLiveData.observe(this, Observer {
-            it?.let {
-                 bairro = it.get(0).bairro
+            when (it) {
+                is SucessResource -> {
+                    Toast.makeText(this, it.sucess.toString(), Toast.LENGTH_LONG).show()
+                }
+                is FailResource -> {
+                    Toast.makeText(this, it.erro, Toast.LENGTH_LONG).show()
+                }
             }
         })
     }
@@ -47,8 +51,13 @@ class CepActivity : BaseActivity() {
     }
 
     private fun setupButton() {
-        buttonBuscar.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this, bairro, Toast.LENGTH_SHORT).show()
-        })
+        buttonBuscar.setOnClickListener {
+            if (editTextCep.text.isNotBlank()) {
+                viewModel.findByCEP(editTextCep.text.toString())
+            } else {
+                editTextCep.error = "Digite o CEP"
+            }
+        }
     }
+
 }
