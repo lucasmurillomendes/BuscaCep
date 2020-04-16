@@ -10,11 +10,13 @@ data class CepResponse(
     val cep: String,
     @Json(name = "logradouro")
     val logradouro: String,
-    @Json(name = "complemento")
-    val bairro: String,
     @Json(name = "bairro")
-    val localidade: String,
+    val bairro: String,
     @Json(name = "localidade")
+    val localidade: String,
+    @Json(name = "complemento")
+    val complemento: String,
+    @Json(name = "uf")
     val uf: String,
     @Json(name = "ibge")
     val ibge: String
@@ -24,6 +26,7 @@ data class CepResponse(
         logradouro = this.logradouro,
         bairro = this.bairro,
         localidade = this.localidade,
+        complemento = this.complemento,
         uf = this.uf,
         ibge = this.ibge
     )

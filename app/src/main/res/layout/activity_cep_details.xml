@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.cepDetails.CepDetailsActivity">
+
+    <include layout="@layout/include_toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Resultados da Pesquisa"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textCep"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Cep pesquisado: " />
+
+        <TextView
+            android:id="@+id/textLogradouro"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Logradouro: " />
+
+        <TextView
+            android:id="@+id/textBairro"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Bairro: " />
+
+        <TextView
+            android:id="@+id/textComplemento"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Complemento: " />
+
+        <TextView
+            android:id="@+id/textCidade"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Cidade: " />
+
+        <TextView
+            android:id="@+id/textEstado"
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Estado: " />
+
+        <TextView
+            style="@style/MyTextViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="* Em caso de dados em branco, significa \n que não consta o dado na base de dados \n da API VIACEP"
+            android:textStyle="italic"
+            android:textAlignment="gravity"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
