@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.ui.CepActivity">
+        <activity android:name="com.lucas.buscacep.presentation.ui.cepActivity.CepActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ui.cepDetails.CepDetailsActivity"
-            android:parentActivityName=".presentation.ui.CepActivity" />
+            android:name="com.lucas.buscacep.presentation.ui.cepDetailsActivity.CepDetailsActivity"
+            android:parentActivityName="com.lucas.buscacep.presentation.ui.cepActivity.CepActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

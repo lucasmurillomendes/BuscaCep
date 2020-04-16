@@ -1,10 +1,8 @@
-package com.lucas.buscacep.presentation.ui.cepDetails
+package com.lucas.buscacep.presentation.ui.cepDetailsActivity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.util.rangeTo
 import com.lucas.buscacep.R
 import com.lucas.buscacep.data.model.Cep
 import com.lucas.buscacep.presentation.ui.base.BaseActivity

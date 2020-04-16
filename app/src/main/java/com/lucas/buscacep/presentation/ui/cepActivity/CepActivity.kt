@@ -1,4 +1,4 @@
-package com.lucas.buscacep.presentation.ui
+package com.lucas.buscacep.presentation.ui.cepActivity
 
 import android.os.Bundle
 import android.widget.Toast
@@ -11,7 +11,7 @@ import com.lucas.buscacep.data.model.Cep
 import com.lucas.buscacep.data.repository.FailResource
 import com.lucas.buscacep.data.repository.SucessResource
 import com.lucas.buscacep.presentation.ui.base.BaseActivity
-import com.lucas.buscacep.presentation.ui.cepDetails.CepDetailsActivity
+import com.lucas.buscacep.presentation.ui.cepDetailsActivity.CepDetailsActivity
 import com.lucas.buscacep.presentation.viewModel.CepViewModel
 import kotlinx.android.synthetic.main.cep_activity.*
 import kotlinx.android.synthetic.main.include_toolbar.*
