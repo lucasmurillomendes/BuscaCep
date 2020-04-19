@@ -22,18 +22,19 @@ class CepDetailsActivity : BaseActivity() {
     }
 
     private fun setupDadosActivity() {
-        val cep = intent.getParcelableExtra<Cep>(EXTRA_CEP)
-        textCep.text = "Cep pesquisado: ${cep.cep}"
-        textLogradouro.text = "Logradouro: ${cep.logradouro}"
-        textBairro.text = "Bairro: ${cep.bairro}"
-        textComplemento.text = "Complemento: ${cep.complemento}"
-        textCidade.text = "Cidade: ${cep.localidade}"
-        textEstado.text = "Estado: ${cep.uf}"
+        intent.getParcelableExtra<Cep>(EXTRA_CEP)?.let {
+            textCep.text = "Cep pesquisado: ${it.cep}"
+            textLogradouro.text = "Logradouro: ${it.logradouro}"
+            textBairro.text = "Bairro: ${it.bairro}"
+            textComplemento.text = "Complemento: ${it.complemento}"
+            textCidade.text = "Cidade: ${it.localidade}"
+            textEstado.text = "Estado: ${it.uf}"
+        }
     }
 
     companion object {
         private const val EXTRA_CEP = "EXTRA_CEP"
-        fun getStartActivity(context: Context, cep: Cep?) : Intent {
+        fun getStartActivity(context: Context, cep: Cep?): Intent {
             return Intent(context, CepDetailsActivity::class.java).apply {
                 putExtra(EXTRA_CEP, cep)
             }
