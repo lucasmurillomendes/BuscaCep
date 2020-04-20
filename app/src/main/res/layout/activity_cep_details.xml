@@ -1,89 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.cepDetailsActivity.CepDetailsActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/include_toolbar" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="Resultados da Pesquisa"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.lucas.buscacep.presentation.ui.cepDetailsActivity.CepDetailViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        tools:context=".presentation.ui.cepDetailsActivity.CepDetailsActivity">
+
+        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbarMain"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/colorWhite" />
 
         <TextView
-            android:id="@+id/textCep"
-            style="@style/MyTextViewLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Cep pesquisado: " />
-
-        <TextView
-            android:id="@+id/textLogradouro"
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Logradouro: " />
-
-        <TextView
-            android:id="@+id/textBairro"
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Bairro: " />
-
-        <TextView
-            android:id="@+id/textComplemento"
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Complemento: " />
-
-        <TextView
-            android:id="@+id/textCidade"
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Cidade: " />
-
-        <TextView
-            android:id="@+id/textEstado"
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Estado: " />
-
-        <TextView
-            style="@style/MyTextViewLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="* Em caso de dados em branco, significa \n que não consta o dado na base de dados \n da API VIACEP"
-            android:textStyle="italic"
-            android:textAlignment="gravity"/>
+            android:text="@string/resultados_da_pesquisa"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textCep"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/cep_pesquisado(viewmodel.cepResponse.cep)}"
+                tools:text="Cep pesquisado:" />
+
+            <TextView
+                android:id="@+id/textLogradouro"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="Logradouro: "
+                android:text="@{@string/logradouro(viewmodel.cepResponse.logradouro)}"/>
+
+            <TextView
+                android:id="@+id/textBairro"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="Bairro: "
+                android:text="@{@string/bairro(viewmodel.cepResponse.bairro)}"/>
+
+            <TextView
+                android:id="@+id/textComplemento"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="Complemento: "
+                android:text="@{@string/complemento(viewmodel.cepResponse.complemento)}"/>
+
+            <TextView
+                android:id="@+id/textCidade"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="Cidade: "
+                android:text="@{@string/cidade(viewmodel.cepResponse.cidade)}"/>
+
+            <TextView
+                android:id="@+id/textEstado"
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="Estado: "
+                android:text="@{@string/estado(viewmodel.cepResponse.estado)}"/>
+
+            <TextView
+                style="@style/MyTextViewLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="* Em caso de dados em branco, significa \n que não consta o dado na base de dados \n da API VIACEP"
+                android:textAlignment="gravity"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
+</layout>

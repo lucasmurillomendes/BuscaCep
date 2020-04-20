@@ -3,41 +3,65 @@ package com.lucas.buscacep.presentation.ui.cepDetailsActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.lucas.buscacep.R
 import com.lucas.buscacep.data.model.Cep
+import com.lucas.buscacep.databinding.ActivityCepDetailsBinding
 import com.lucas.buscacep.presentation.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_cep_details.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 class CepDetailsActivity : BaseActivity() {
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(CepDetailViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cep_details)
 
-        setupToolbar(toolbarMain, R.string.title_toolbar_main, true)
+        val cep = intent.getParcelableExtra<Cep>(EXTRA_CEP)
 
-        setupDadosActivity()
+        setupDataBinding()
+        setupObservers(cep)
 
     }
 
-    private fun setupDadosActivity() {
-        intent.getParcelableExtra<Cep>(EXTRA_CEP)?.let {
-            textCep.text = "Cep pesquisado: ${it.cep}"
-            textLogradouro.text = "Logradouro: ${it.logradouro}"
-            textBairro.text = "Bairro: ${it.bairro}"
-            textComplemento.text = "Complemento: ${it.complemento}"
-            textCidade.text = "Cidade: ${it.localidade}"
-            textEstado.text = "Estado: ${it.uf}"
+    /**
+     * Init Databinding
+     */
+    private fun setupDataBinding() {
+        val binding = DataBindingUtil.setContentView<ActivityCepDetailsBinding>(
+            this,
+            R.layout.activity_cep_details
+        )
+        binding.viewmodel = viewModel
+
+        setupToolbar(binding.toolbarMain, R.string.title_toolbar_main, true)
+
+        binding.lifecycleOwner = this
+    }
+
+    /**
+     * Pass parameter CEP
+     */
+    private fun setupObservers(cep: Cep?) {
+        cep?.let {
+            viewModel.addCep(it)
         }
     }
 
     companion object {
         private const val EXTRA_CEP = "EXTRA_CEP"
-        fun getStartActivity(context: Context, cep: Cep?): Intent {
-            return Intent(context, CepDetailsActivity::class.java).apply {
-                putExtra(EXTRA_CEP, cep)
-            }
+
+        fun open(context: Context, cep: Cep?) {
+            val intent = Intent(context, CepDetailsActivity::class.java)
+                .apply {
+                    putExtra(EXTRA_CEP, cep)
+                }
+
+            context.startActivity(intent)
         }
     }
 }

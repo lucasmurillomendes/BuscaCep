@@ -1,4 +1,4 @@
-package com.lucas.buscacep.presentation.viewModel
+package com.lucas.buscacep.presentation.ui.cepActivity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CepViewModel() : ViewModel() {
+class CepViewModel : ViewModel() {
 
     val cepLiveData: MutableLiveData<Resource<Cep>> = MutableLiveData()
 

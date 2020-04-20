@@ -25,9 +25,9 @@ data class CepResponse(
         cep = this.cep,
         logradouro = this.logradouro,
         bairro = this.bairro,
-        localidade = this.localidade,
+        cidade = this.localidade,
         complemento = this.complemento,
-        uf = this.uf,
+        estado = this.uf,
         ibge = this.ibge
     )
 }

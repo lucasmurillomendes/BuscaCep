@@ -4,12 +4,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Cep (
-    val cep : String,
-    val logradouro : String,
-    val complemento: String,
-    val bairro : String,
-    val localidade: String,
-    val uf : String,
-    val ibge : String
+data class Cep(
+    val cep: String,
+    val logradouro: String = "Não encontrado",
+    val complemento: String = "Não encontrado",
+    val bairro: String = "Não encontrado",
+    val cidade: String = "Não encontrado",
+    val estado: String = "Não encontrado",
+    val ibge: String = "Não encontrado"
 ) : Parcelable
