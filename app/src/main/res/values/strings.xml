@@ -4,4 +4,12 @@
 
     <!-- Cep Activity -->
     <string name="title_toolbar_main">Busca Cep</string>
+    <string name="resultados_da_pesquisa">Resultados da Pesquisa</string>
+    <string name="cep_pesquisado">CEP Pesquisado: %s</string>
+    <string name="logradouro">Logradouro: %s</string>
+    <string name="bairro">Bairro: %s</string>
+    <string name="complemento">Complemento: %s</string>
+    <string name="cidade">Cidade: %s</string>
+    <string name="estado">Estado: %s</string>
+    <string name="cep_invalido">CEP Invalido</string>
 </resources>
