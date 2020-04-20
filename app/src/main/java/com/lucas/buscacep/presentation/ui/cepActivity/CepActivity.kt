@@ -2,6 +2,7 @@ package com.lucas.buscacep.presentation.ui.cepActivity
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.rtoshiro.util.format.SimpleMaskFormatter
@@ -12,7 +13,6 @@ import com.lucas.buscacep.data.repository.FailResource
 import com.lucas.buscacep.data.repository.SucessResource
 import com.lucas.buscacep.presentation.ui.base.BaseActivity
 import com.lucas.buscacep.presentation.ui.cepDetailsActivity.CepDetailsActivity
-import com.lucas.buscacep.presentation.viewModel.CepViewModel
 import kotlinx.android.synthetic.main.cep_activity.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
@@ -20,7 +20,6 @@ class CepActivity : BaseActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this).get(CepViewModel::class.java)
     }
-    private var sucess:Cep? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +36,10 @@ class CepActivity : BaseActivity() {
         viewModel.cepLiveData.observe(this, Observer {
             when (it) {
                 is SucessResource -> {
-                    sucess= it.sucess
-                   val intent = CepDetailsActivity.getStartActivity(this@CepActivity, sucess)
-                    this@CepActivity.startActivity(intent)
+                   CepDetailsActivity.open(this@CepActivity, it.sucess)
                 }
                 is FailResource -> {
-                    Toast.makeText(this, it.erro, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.cep_invalido, Toast.LENGTH_LONG).show()
                 }
             }
         })
