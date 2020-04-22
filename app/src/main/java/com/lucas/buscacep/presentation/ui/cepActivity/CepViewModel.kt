@@ -1,40 +1,40 @@
 package com.lucas.buscacep.presentation.ui.cepActivity
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.lucas.buscacep.data.model.Cep
+import com.lucas.buscacep.data.repository.CepRepositoryImpl
 import com.lucas.buscacep.data.repository.FailResource
 import com.lucas.buscacep.data.repository.Resource
-import com.lucas.buscacep.data.repository.SucessResource
-import com.lucas.buscacep.data.response.CepResponse
-import com.lucas.buscacep.data.retrofitConf.ApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.lucas.buscacep.presentation.ui.base.CoroutineViewModel
+import kotlinx.coroutines.launch
 
-class CepViewModel : ViewModel() {
+class CepViewModel(
+    private val repository: CepRepositoryImpl
+) : CoroutineViewModel() {
 
-    val cepLiveData: MutableLiveData<Resource<Cep>> = MutableLiveData()
+    private val cep: MutableLiveData<Resource<Cep>> = MutableLiveData()
+    private val loading: MutableLiveData<Boolean> = MutableLiveData()
+    private val error: MutableLiveData<Throwable> = MutableLiveData()
 
-    fun findByCEP(cep: String) {
-        ApiService.service.getCep(cep).enqueue(object : Callback<CepResponse> {
-            override fun onResponse(call: Call<CepResponse>, response: Response<CepResponse>) {
-                when {
-                    response.isSuccessful -> {
+    fun cep() = cep as LiveData<Resource<Cep>>
+    fun loading() = loading as LiveData<Boolean>
+    fun error() = error as LiveData<Throwable>
 
-                        response.body()?.let { cepResponse ->
-                            val cepIU = cepResponse.mapFrom()
-                            cepLiveData.postValue(SucessResource(cepIU))
-                        }
-                    }
-                }
+    fun findByCEP(cepQuery: String) {
+
+        jobs add launch {
+            loading.value = true
+            try {
+                cep.value = repository.getCep(cepQuery).await()
+                loading.value = false
+            } catch (t: Throwable) {
+                cep.value = FailResource(t.message)
+                error.value = t
+            } finally {
+                loading.value = false
             }
-
-            override fun onFailure(call: Call<CepResponse>, error: Throwable) {
-                cepLiveData.postValue(FailResource(erro = error.message))
-            }
-
-        })
+        }
     }
 
 }

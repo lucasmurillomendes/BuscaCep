@@ -1,6 +1,7 @@
 package com.lucas.buscacep.data.model
 
 import android.os.Parcelable
+import com.lucas.buscacep.data.repository.SucessResource
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -12,4 +13,7 @@ data class Cep(
     val cidade: String = "Não encontrado",
     val estado: String = "Não encontrado",
     val ibge: String = "Não encontrado"
-) : Parcelable
+) : Parcelable {
+
+    fun toResource() = SucessResource(this)
+}

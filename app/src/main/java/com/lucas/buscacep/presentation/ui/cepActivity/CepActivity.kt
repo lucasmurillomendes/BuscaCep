@@ -1,14 +1,14 @@
 package com.lucas.buscacep.presentation.ui.cepActivity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.rtoshiro.util.format.SimpleMaskFormatter
 import com.github.rtoshiro.util.format.text.MaskTextWatcher
 import com.lucas.buscacep.R
-import com.lucas.buscacep.data.model.Cep
+import com.lucas.buscacep.data.repository.CepRepositoryImpl
 import com.lucas.buscacep.data.repository.FailResource
 import com.lucas.buscacep.data.repository.SucessResource
 import com.lucas.buscacep.presentation.ui.base.BaseActivity
@@ -17,8 +17,14 @@ import kotlinx.android.synthetic.main.cep_activity.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 class CepActivity : BaseActivity() {
+
+    private val repository by lazy {
+        CepRepositoryImpl()
+    }
+
     private val viewModel by lazy {
-        ViewModelProvider(this).get(CepViewModel::class.java)
+        val factory = CepViewModelFactory(repository)
+        ViewModelProvider(this, factory).get(CepViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,16 +39,27 @@ class CepActivity : BaseActivity() {
     }
 
     private fun setupObservers(viewModel: CepViewModel) {
-        viewModel.cepLiveData.observe(this, Observer {
+        viewModel.cep().observe(this, Observer {
             when (it) {
                 is SucessResource -> {
-                   CepDetailsActivity.open(this@CepActivity, it.sucess)
+                    CepDetailsActivity.open(this@CepActivity, it.sucess)
                 }
                 is FailResource -> {
                     Toast.makeText(this, R.string.cep_invalido, Toast.LENGTH_LONG).show()
                 }
             }
         })
+
+        viewModel.loading().observe(this, Observer {
+            progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.error().observe(this, Observer {
+            it?.let {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+            }
+        })
+
     }
 
     private fun setupMask() {
